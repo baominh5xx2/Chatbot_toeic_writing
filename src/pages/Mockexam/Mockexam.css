@@ -1,0 +1,63 @@
+.page-title {
+  color: #1976d2;
+  margin-bottom: 8px !important;
+}
+
+.exam-card {
+  height: 100%;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.exam-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.exam-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.exam-title {
+  margin-right: 12px;
+  font-weight: 600 !important;
+}
+
+.exam-description {
+  margin-bottom: 16px !important;
+  line-height: 1.5 !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.exam-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.exam-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.completion-progress {
+  margin-bottom: 16px;
+}
+
+.exam-actions {
+  margin-top: auto;
+  padding: 16px !important;
+}

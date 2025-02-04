@@ -1,0 +1,96 @@
+.user-page-container {
+  padding: 32px !important;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.user-profile-paper {
+  padding: 32px;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.user-name {
+  margin-top: 16px !important;
+  margin-bottom: 8px !important;
+}
+
+.user-email {
+  color: #666;
+}
+
+.submit-button {
+  margin-top: 24px !important;
+}
+
+.page-title {
+  margin-bottom: 24px !important;
+  color: #1a237e;
+  font-weight: 600 !important;
+}
+
+.profile-card {
+  padding: 24px;
+  text-align: center;
+  height: 100%;
+}
+
+.avatar-section {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.upload-avatar-btn {
+  position: absolute !important;
+  bottom: 0;
+  right: 0;
+  background-color: white !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.user-info-section {
+  text-align: left;
+  padding: 0 16px;
+}
+
+.name-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.info-item {
+  margin: 8px 0;
+}
+
+.password-card {
+  padding: 24px;
+  height: 100%;
+}
+
+.section-title {
+  color: #1a237e;
+  font-weight: 600 !important;
+}
+
+.password-form {
+  margin-top: 24px;
+}
+
+.action-buttons {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-buttons button {
+  min-width: 150px;
+}
