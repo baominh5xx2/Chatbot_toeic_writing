@@ -139,15 +139,17 @@ const ExamMode = () => {
 
   return (
     <Box sx={{ 
-      width: '100vw',
+      width: '100vw',  // Sử dụng toàn bộ chiều rộng màn hình
       height: '100vh',
       position: 'fixed',
       top: 0,
-      left: 0,
-      bgcolor: '#f5f5f5',  // Added background color
+      left: 0,  // Bắt đầu từ mép trái màn hình
+      bgcolor: '#f5f5f5',
       overflow: 'hidden'
     }}>  
-      <AppBar position="fixed" className="exam-header">
+      <AppBar position="fixed" className="exam-header" sx={{
+        width: '100%',  // Sử dụng toàn bộ chiều rộng
+      }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
             <Typography variant="h6">TOEIC Writing Test {examId}</Typography>
@@ -274,7 +276,7 @@ const ExamMode = () => {
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
           <Button 
-            onClick={() => navigate('/mockexam')} 
+            onClick={() => navigate('/app/mockexam')} // Cập nhật đường dẫn khi thoát
             color="error"
           >
             Exit Exam

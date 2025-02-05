@@ -85,7 +85,7 @@ const ExamCard = ({ exam }) => {
           variant="contained" 
           fullWidth
           color="primary"
-          onClick={() => navigate(`/mockexam/${exam.id}/start`)}
+          onClick={() => navigate(`/app/mockexam/${exam.id}/start`)}  // Update this path
         >
           Start Exam
         </Button>

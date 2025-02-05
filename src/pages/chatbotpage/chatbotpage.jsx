@@ -6,19 +6,58 @@ import {
   TextField,
   Button,
   IconButton,
-  Divider
+  Divider,
+  CircularProgress
 } from '@mui/material';
 import { Send as SendIcon } from '@mui/icons-material';
+import { getGeminiResponse } from '../../services/Geminichat/Geminichat';
 import './chatbotpage.css';
+import ReactMarkdown from 'react-markdown'; // Thêm import này
 
 const ChatbotPage = () => {
-  const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [messages, setMessages] = useState([{
+    text: `Xin chào! Mình là giáo viên TOEIC Writing của bạn 👋
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
-    setMessages([...messages, { text: inputValue, sender: 'user' }]);
+Mình có thể giúp bạn luyện tập hai phần sau:
+
+1️⃣ Task 1: Write a sentence based on a picture
+   • Viết câu dựa trên hình ảnh
+   • Học cách quan sát và mô tả
+   • Luyện tập cấu trúc câu
+
+2️⃣ Task 2: Respond to a written request
+   • Trả lời thư/email
+   • Học cách tổ chức ý tưởng
+   • Luyện tập viết văn bản hoàn chỉnh
+
+Bạn muốn luyện tập phần nào? Hãy cho mình biết nhé! 😊`,
+    sender: 'bot'
+  }]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage = { text: inputValue, sender: 'user' };
+    setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+    setIsLoading(true);
+
+    try {
+      const response = await getGeminiResponse(inputValue);
+      const botMessage = { text: response, sender: 'bot' };
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      const errorMessage = { 
+        text: "Sorry, I encountered an error. Please try again.", 
+        sender: 'bot',
+        isError: true 
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -96,14 +135,42 @@ const ChatbotPage = () => {
                 sx={{
                   maxWidth: '70%',
                   alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-                  bgcolor: msg.sender === 'user' ? 'primary.main' : 'white',
-                  color: msg.sender === 'user' ? 'white' : 'text.primary',
+                  bgcolor: msg.sender === 'user' ? 'primary.main' : 
+                          msg.isError ? '#ffebee' : 'white',
+                  color: msg.sender === 'user' ? 'white' : 
+                         msg.isError ? '#c62828' : 'text.primary',
                   p: 2,
                   borderRadius: 3,
                   boxShadow: 1
                 }}
               >
-                <Typography variant="body1">{msg.text}</Typography>
+                <ReactMarkdown
+                  components={{
+                    p: ({ children }) => (
+                      <Typography 
+                        variant="body1" 
+                        sx={{ 
+                          whiteSpace: 'pre-line',
+                          '& ul': { 
+                            paddingLeft: 2,
+                            marginTop: 0,
+                            marginBottom: 0 
+                          },
+                          '& li': { 
+                            marginBottom: 0.5 
+                          },
+                          '& strong': {
+                            fontWeight: 600
+                          }
+                        }}
+                      >
+                        {children}
+                      </Typography>
+                    )
+                  }}
+                >
+                  {msg.text}
+                </ReactMarkdown>
               </Box>
             ))
           )}
@@ -126,6 +193,7 @@ const ChatbotPage = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
+              disabled={isLoading}
               sx={{ 
                 '& .MuiOutlinedInput-root': {
                   borderRadius: 3
@@ -135,7 +203,7 @@ const ChatbotPage = () => {
             <IconButton 
               color="primary" 
               onClick={handleSendMessage}
-              disabled={!inputValue.trim()}
+              disabled={!inputValue.trim() || isLoading}
               sx={{ 
                 bgcolor: 'primary.main',
                 color: 'white',
@@ -148,7 +216,7 @@ const ChatbotPage = () => {
                 }
               }}
             >
-              <SendIcon />
+              {isLoading ? <CircularProgress size={24} color="inherit" /> : <SendIcon />}
             </IconButton>
           </Box>
         </Box>

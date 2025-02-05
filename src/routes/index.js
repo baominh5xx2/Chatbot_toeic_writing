@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import UserPage from "../pages/Userpage/Userpage";
 import Sider from "../components/sider/sider";
 import { AuthProvider } from "../contexts/AuthContext"; // Fix the import path
+import ExamMode from "../pages/Mockexam/ExamMode"; // Add this import
 
 function MainLayout() {
   return (
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
         element: <UserPage />
       }
     ]
+  },
+  // Tạo route riêng cho exam mode, không nằm trong MainLayout
+  {
+    path: "/app/mockexam/:examId/start",
+    element: <ExamMode /> // Bỏ MainLayout và chỉ render ExamMode
   },
   {
     path: "*",
