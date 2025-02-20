@@ -45,7 +45,8 @@ Bạn muốn luyện tập phần nào? Hãy cho mình biết nhé! 😊`,
     setIsLoading(true);
 
     try {
-      const response = await getGeminiResponse(inputValue);
+      // Truyền toàn bộ lịch sử chat vào hàm getGeminiResponse
+      const response = await getGeminiResponse(inputValue, messages);
       const botMessage = { text: response, sender: 'bot' };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
